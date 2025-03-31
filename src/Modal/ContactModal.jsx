@@ -221,22 +221,6 @@ const ContactModal = ({ open, handleClose }) => {
           >
             {t("modalButton")}
           </Button>
-          <Button
-            fullWidth
-            variant="outlined"
-            onClick={handleCancel}
-            sx={{
-              borderColor: "#FFF",
-              color: "#FFF",
-              textTransform: "none",
-              fontWeight: "bold",
-              fontSize: { xs: "14px", md: "16px" },
-              py: { xs: 1, md: 1.5 },
-              "&:hover": { borderColor: "#D3176D", color: "#D3176D" },
-            }}
-          >
-            {t("cancel", { defaultValue: "Bekor qilish" })}
-          </Button>
         </Box>
 
         <Box sx={telegramContainerStyle}>
