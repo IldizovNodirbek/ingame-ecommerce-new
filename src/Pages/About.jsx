@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Divider } from "@mui/material";
 import styled from "styled-components";
-import AboutHeader from "../Images/about-header-img.jpg";
+import AboutHeader from "../Images/About-header-img.jpg";
 
 const Container = styled(Box)`
   background-color: #1a1a1a;
