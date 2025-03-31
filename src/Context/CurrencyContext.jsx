@@ -11,7 +11,7 @@ export const CurrencyProvider = ({ children }) => {
   useEffect(() => {
     const fetchCurrencyRate = async () => {
       try {
-        const response = await fetch("/api/cbu/json/");
+        const response = await fetch("https://cbu.uz/uz/arkhiv-kursov-valyut/json/");
         const data = await response.json();
         const usd = data.find((item) => item.Ccy === "USD");
         setUsdRate(parseFloat(usd.Rate));
