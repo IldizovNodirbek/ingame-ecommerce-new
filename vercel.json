@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/ingame/(.*)",
+      "destination": "https://ingame1.azeme.uz/api/$1"
+    },
+    {
+      "source": "/api/cbu/(.*)",
+      "destination": "https://cbu.uz/uz/arkhiv-kursov-valyut/$1"
+    }
+  ]
+}
