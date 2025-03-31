@@ -15,7 +15,7 @@ const SimilarProductsCarousel = ({ category }) => {
     const fetchSimilarProducts = async () => {
       try {
         const response = await axios.get(
-          "https://ingame1.azeme.uz/api/user/products?p=10"
+          "/api/ingame/user/products?p=10"
         );
         if (response.data && Array.isArray(response.data.data)) {
           const products = response.data.data;
