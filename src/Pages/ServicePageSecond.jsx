@@ -27,7 +27,7 @@ import ServiceButtons from "../Components/ServiceButtons";
 
 function ServicePageSecond() {
   const StyledBackground = styled("div")(({ theme }) => ({
-    marginTop: "64px",
+    marginTop: "108px",
     backgroundColor: "#0F0F0F",
     fontFamily: "Clash Display",
     minHeight: "100vh",
