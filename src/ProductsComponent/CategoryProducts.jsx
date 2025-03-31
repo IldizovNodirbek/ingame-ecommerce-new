@@ -153,7 +153,7 @@ const CategoryProducts = ({ category, filterPrice }) => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "/api/ingame/user/products?p=10"
+          "https://ingame1.azeme.uz/api/user/products?p=10"
         );
         console.log("API javobi:", response.data); // Tekshirish uchun
         if (!response.data || !Array.isArray(response.data.data)) {
