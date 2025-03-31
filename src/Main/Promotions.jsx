@@ -8,47 +8,48 @@ import { CurrencyContext } from "../Context/CurrencyContext";
 
 const Promotions = () => {
   const { t, i18n } = useTranslation();
-  const { currency, usdRate } = useContext(CurrencyContext); // Valyuta kontekstidan olish
-  const [products, setProducts] = useState([]);
+  const { currency, usdRate } = useContext(CurrencyContext);
+  const [promotions, setPromotions] = useState([]); // Faqat promotions state’ini ishlatamiz
   const [loading, setLoading] = useState(true);
 
- const [promotions, setPromotions] = useState([]); // State e’lon qilish
+  useEffect(() => {
+    const fetchPromotions = async () => {
+      try {
+        const response = await axios.get("/api/ingame/user/products?p=10");
+        console.log("API status kodi:", response.status);
+        console.log("API javobi:", response.data);
+        console.log("Mahsulotlar massivi:", response.data.data);
 
-useEffect(() => {
-  const fetchPromotions = async () => {
-    try {
-      const response = await axios.get("/api/ingame/user/products?p=10");
-      console.log("API javobi:", response.data);
-      console.log("Mahsulotlar massivi:", response.data.data);
+        const allProducts = response.data.data;
 
-      const allProducts = response.data.data;
+        if (!allProducts || !Array.isArray(allProducts)) {
+          throw new Error("API’dan mahsulotlar massivi kelmadi");
+        }
 
-      if (!allProducts || !Array.isArray(allProducts)) {
-        throw new Error("API’dan mahsulotlar massivi kelmadi");
-      }
+        allProducts.forEach((product, index) => {
+          console.log(`Mahsulot ${index} statuses:`, product.statuses);
+        });
 
-      allProducts.forEach((product, index) => {
-        console.log(`Mahsulot ${index} statuses:`, product.statuses);
-      });
-
-      const promotionProducts = allProducts.filter((product) =>
-        product.statuses.some((status) =>
-          status.translations.some(
-            (trans) =>
-              trans.name.toLowerCase() === "chegirma" ||
-              trans.name.toLowerCase() === "распродажа"
+        const promotionProducts = allProducts.filter((product) =>
+          product.statuses.some((status) =>
+            status.translations.some(
+              (trans) =>
+                trans.name.toLowerCase() === "chegirma" ||
+                trans.name.toLowerCase() === "распродажа"
+            )
           )
-        )
-      );
+        );
 
-      console.log("Aksiyadagi mahsulotlar:", promotionProducts);
-      setPromotions(promotionProducts); // State’ni yangilash
-    } catch (error) {
-      console.error("Aksiyadagi mahsulotlarni olishda xato:", error);
-    }
-  };
-  fetchPromotions();
-}, []);
+        console.log("Aksiyadagi mahsulotlar:", promotionProducts);
+        setPromotions(promotionProducts);
+      } catch (error) {
+        console.error("Aksiyadagi mahsulotlarni olishda xato:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPromotions();
+  }, []);
 
   return (
     <Box
@@ -94,11 +95,21 @@ useEffect(() => {
         justifyContent="center"
       >
         {loading ? (
-          <Typography sx={{ color: "#FFF" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "200px",
+              width: "100%",
+            }}
+          >
+           <Typography sx={{ color: "#FFF" }}>
             {t("loading", { defaultValue: "Yuklanmoqda..." })}
           </Typography>
-        ) : products.length > 0 ? (
-          products.map((product) => (
+          </Box>
+        ) : promotions.length > 0 ? (
+          promotions.map((product) => (
             <Grid item xs={12} sm={6} md={3} key={product.id}>
               <ProductCard
                 product={{
@@ -106,14 +117,14 @@ useEffect(() => {
                   name:
                     product.translations.find((t) => t.locale === i18n.language)
                       ?.name || product.translations[0].name,
-                  price: product.price, // Backenddan kelgan narx
+                  price: product.price,
                   image:
                     product.images?.[0]?.url ||
                     "https://via.placeholder.com/150",
                   brand: product.brand?.name || "Brend yo‘q",
                 }}
                 currency={currency}
-                usdRate={usdRate} // usdRate kontekstdan olingan
+                usdRate={usdRate}
               />
             </Grid>
           ))
