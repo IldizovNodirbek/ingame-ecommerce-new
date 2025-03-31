@@ -113,7 +113,7 @@ const ContactModal = ({ open, handleClose }) => {
   };
 
   const handleTelegramClick = () => {
-    window.open("https://t.me/your_telegram_handle", "_blank"); // Telegram handle’ni o‘zgartiring
+    window.open("https://t.me/ingame_shop", "_blank"); // Telegram handle’ni o‘zgartiring
   };
 
   return (
