@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500&display=swap");
+
+@import "../node_modules/slick-carousel/slick/slick.css";
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0a;
+}
+
+.slick-dots li button:before {
+  color: gray;
+}
+
+.slick-dots .slick-active button:before {
+  color: #d3176d;
+}
+
+/* ::-webkit-scrollbar {
+  width: 12px;
+  
+}
+
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px gray; 
+  border-radius: 10px;
+}
+ 
+
+::-webkit-scrollbar-thumb {
+  background: #D3176D; 
+  border-radius: 10px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ba0b5a; 
+} */
