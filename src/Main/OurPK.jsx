@@ -10,7 +10,7 @@ const OurPK = () => {
     const fetchCards = async () => {
       try {
         const response = await fetch(
-          "https://ingame1.azeme.uz/api/user/desktops"
+          "/api/ingame/user/desktops"
         );
         const result = await response.json();
         if (result.status === "Успешный") {
