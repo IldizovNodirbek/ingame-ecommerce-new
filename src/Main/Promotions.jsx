@@ -12,34 +12,43 @@ const Promotions = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchPromotions = async () => {
-      try {
-        const response = await axios.get(
-          "/api/ingame/user/products?p=10"
-        );
-        const allProducts = response.data.data;
+ const [promotions, setPromotions] = useState([]); // State e’lon qilish
 
-        // Chegirmadagi mahsulotlarni filtrlaymiz
-        const promotionProducts = allProducts.filter((product) =>
-          product.statuses.some((status) =>
-            status.translations.some(
-              (trans) =>
-                trans.name === "Chegirma" || trans.name === "Распродажа"
-            )
-          )
-        );
+useEffect(() => {
+  const fetchPromotions = async () => {
+    try {
+      const response = await axios.get("/api/ingame/user/products?p=10");
+      console.log("API javobi:", response.data);
+      console.log("Mahsulotlar massivi:", response.data.data);
 
-        setProducts(promotionProducts);
-        setLoading(false);
-      } catch (error) {
-        console.error("Promotions olishda xato:", error);
-        setLoading(false);
+      const allProducts = response.data.data;
+
+      if (!allProducts || !Array.isArray(allProducts)) {
+        throw new Error("API’dan mahsulotlar massivi kelmadi");
       }
-    };
 
-    fetchPromotions();
-  }, []);
+      allProducts.forEach((product, index) => {
+        console.log(`Mahsulot ${index} statuses:`, product.statuses);
+      });
+
+      const promotionProducts = allProducts.filter((product) =>
+        product.statuses.some((status) =>
+          status.translations.some(
+            (trans) =>
+              trans.name.toLowerCase() === "chegirma" ||
+              trans.name.toLowerCase() === "распродажа"
+          )
+        )
+      );
+
+      console.log("Aksiyadagi mahsulotlar:", promotionProducts);
+      setPromotions(promotionProducts); // State’ni yangilash
+    } catch (error) {
+      console.error("Aksiyadagi mahsulotlarni olishda xato:", error);
+    }
+  };
+  fetchPromotions();
+}, []);
 
   return (
     <Box
