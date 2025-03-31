@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 function ServicePageFirst() {
   const StyledBackground = styled("div")(({ theme }) => ({
-    marginTop: "64px",
+    marginTop: "108px",
     backgroundColor: "#1A1A1A",
     fontFamily: "Clash Display",
     minHeight: "100vh",
